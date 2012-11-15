@@ -27,6 +27,18 @@ sub add_ruler_item {
     push @{$_[0]->{ruler}}, $_[1];
 }
 
+sub outside {
+    my ( $self, $outside ) = @_;
+
+    if ( $outside ) {
+	$self->{size} = $self->{start} = $self->{end} = 0;
+	$self->{outside} = 1;
+	return $self;
+    }
+
+    ! ! $self->{outside};
+}
+
 1;
 
 __END__
@@ -98,6 +110,13 @@ right value of range operator C<..>
 =item size
 
 A size of current page. It shows how many items in I<current> page.
+
+=item outside
+
+If a piece is located outside of array then returns true else false. It can
+happen when page_number is <= 0 or page_number is more than a maximal possible
+page number for this data array. If L</outside> returned a true then L</start>,
+L</end> and L</size> methods will return 0 and L</ruler> returns an empty array.
 
 =back
 

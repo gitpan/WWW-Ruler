@@ -14,6 +14,7 @@ SYNOPSIS
         my $piece = $ruler->cut_off( page_number => $page_number, amount => $array_length );
 
         # Detail in manual WWW::Ruler::Piece(3)
+        $piece->outside;                    # true if piece are located outside of array of data. You can test before next methods
         $ruler_array = $piece->ruler;       # An array of ruler items for drawing
         $start_index = $piece->start;       # A start index of array (a base is zero) for cutting
         $end_index   = $piece->end;         # An end index  of array (a base is zero) for cutting
@@ -26,7 +27,7 @@ DESCRIPTION
     [ << ] [ 1 ] [ ... ] [ 4 ] [ 5 ] ( 6 ) [ 7 ] [ 8 ] [ ... ] [ 999 ]
     [ >> ]
 
-    ( 1 ) [ 4 ] [ 5 ] ( 6 ) [ 7 ] [ 8 ] [ ... ] [ 999 ] [ >> ]
+    [ 1 ] [ 4 ] [ 5 ] ( 6 ) [ 7 ] [ 8 ] [ ... ] [ 999 ] [ >> ]
 
     [ << ] [ 1 ] [ ... ] [ 4 ] [ 5 ] ( 6 ) [ 7 ] [ 8 ] [ >> ]
 
@@ -65,12 +66,13 @@ METHODS
         The constructor. The %opts are optional. Any options can be
         redefined in "cut_off" method.
 
-    cut_off
+    cut_off ( %opts )
         This method makes virtual *cut off* of array and contructs array of
-        ruler items. Any options are passed to this method redefine options
-        of constructor.
+        ruler items. Any options passed into this method redefine options of
+        constructor (to see "SYNOPSIS").
 
-        Returns an instance of WWW::Ruler::Piece object.
+        Returns an instance of WWW::Ruler::Piece object. You can test a
+        validation of piece bounds by "outside" in WWW::Ruler::Piece method.
 
 AUTHOR
     This module has been written by Perlover <perlover@perlover.com>

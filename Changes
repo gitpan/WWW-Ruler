@@ -1,0 +1,7 @@
+0.11 - Thu Nov 15 17:31:59 UTC 2012
+    +) Added WWW::Ruler::Piece::outside method
+    +) Updated documentation
+    +) Added first tests
+
+0.1
+    First release

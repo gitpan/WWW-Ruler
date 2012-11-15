@@ -1,3 +1,4 @@
+Changes
 inc/Module/Install.pm
 inc/Module/Install/Base.pm
 inc/Module/Install/Can.pm
@@ -16,3 +17,5 @@ META.yml
 MYMETA.json
 MYMETA.yml
 README
+t/00_compile.t
+t/01_test_pieces.t

@@ -4,7 +4,7 @@
       "Perlover <perlover@perlover.com>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Module::Install version 1.04, CPAN::Meta::Converter version 2.112150",
+   "generated_by" : "Module::Install version 1.06, CPAN::Meta::Converter version 2.112150",
    "license" : [
       "perl_5"
    ],
@@ -15,7 +15,8 @@
    "name" : "WWW-Ruler",
    "no_index" : {
       "directory" : [
-         "inc"
+         "inc",
+         "t"
       ]
    },
    "prereqs" : {
@@ -42,5 +43,5 @@
          "url" : "git://github.com/Perlover/WWW-Ruler.git"
       }
    },
-   "version" : "0.1"
+   "version" : "0.11"
 }

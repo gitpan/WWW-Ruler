@@ -5,7 +5,7 @@ use warnings;
 
 use WWW::Ruler::Piece;
 
-our $VERSION = '0.1';
+our $VERSION = '0.11';
 
 sub new {
     my ( $class, %opts ) = @_;
@@ -33,14 +33,16 @@ sub cut_off {
     # A building of ruler line...
     my $piece	= WWW::Ruler::Piece->new( $amount );
 
-    return $piece unless $amount;
+    return $piece->outside(1)
+      unless $amount;
 
     $all_pages		= int( ($amount - 1) / $page_size + 1 );
 
     $left_size		= int( ( $ruler_size - 1 ) / 2 );
     $right_size		= $ruler_size - 1 - $left_size;
 
-    $page_number	= $all_pages if ( $page_number > $all_pages );
+    return $piece->outside(1)
+      if ( $page_number > $all_pages || $page_number <= 0 );
 
     $piece->add_ruler_item( { type => 'prev_pointer', page_number => $page_number - 1} ) if ( $page_number > 1 );
     $piece->add_ruler_item( { type => 'page', page_number => 1, ( $page_number == 1 ? ( current_page => 1 ) : () )} );
@@ -87,6 +89,7 @@ Now this module is beta. Not all documentation is finished yet.
     my $piece = $ruler->cut_off( page_number => $page_number, amount => $array_length );
 
     # Detail in manual WWW::Ruler::Piece(3)
+    $piece->outside;			# true if piece are located outside of array of data. You can test before next methods
     $ruler_array = $piece->ruler;       # An array of ruler items for drawing
     $start_index = $piece->start;       # A start index of array (a base is zero) for cutting
     $end_index   = $piece->end;         # An end index  of array (a base is zero) for cutting
@@ -99,7 +102,7 @@ start and end indices. Ruler can look like these examples:
 
 [E<nbsp>E<lt>E<lt>E<nbsp>] [E<nbsp>1E<nbsp>] [E<nbsp>...E<nbsp>] [E<nbsp>4E<nbsp>] [E<nbsp>5E<nbsp>] (E<nbsp>6E<nbsp>) [E<nbsp>7E<nbsp>] [E<nbsp>8E<nbsp>] [E<nbsp>...E<nbsp>] [E<nbsp>999E<nbsp>] [E<nbsp>E<gt>E<gt>E<nbsp>]
 
-(E<nbsp>1E<nbsp>) [E<nbsp>4E<nbsp>] [E<nbsp>5E<nbsp>] (E<nbsp>6E<nbsp>) [E<nbsp>7E<nbsp>] [E<nbsp>8E<nbsp>] [E<nbsp>...E<nbsp>] [E<nbsp>999E<nbsp>] [E<nbsp>E<gt>E<gt>E<nbsp>]
+[E<nbsp>1E<nbsp>] [E<nbsp>4E<nbsp>] [E<nbsp>5E<nbsp>] (E<nbsp>6E<nbsp>) [E<nbsp>7E<nbsp>] [E<nbsp>8E<nbsp>] [E<nbsp>...E<nbsp>] [E<nbsp>999E<nbsp>] [E<nbsp>E<gt>E<gt>E<nbsp>]
 
 [E<nbsp>E<lt>E<lt>E<nbsp>] [E<nbsp>1E<nbsp>] [E<nbsp>...E<nbsp>] [E<nbsp>4E<nbsp>] [E<nbsp>5E<nbsp>] (E<nbsp>6E<nbsp>) [E<nbsp>7E<nbsp>] [E<nbsp>8E<nbsp>] [E<nbsp>E<gt>E<gt>E<nbsp>]
 
@@ -149,12 +152,13 @@ An amount of items in whole array.
 
 The constructor. The %opts are optional. Any options can be redefined in L</cut_off> method.
 
-=item cut_off
+=item cut_off ( %opts )
 
 This method makes virtual I<cut off> of array and contructs array of ruler
-items. Any options are passed to this method redefine options of constructor.
+items. Any options passed into this method redefine options of constructor (to see L</SYNOPSIS>).
 
 Returns an instance of L<WWW::Ruler::Piece> object.
+You can test a validation of piece bounds by L<WWW::Ruler::Piece/outside> method.
 
 =back
 
