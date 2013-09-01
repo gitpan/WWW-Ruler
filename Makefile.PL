@@ -8,6 +8,7 @@ abstract 'Simple helper for making ruler for WWW pages';
 
 author 'Perlover <perlover@perlover.com>';
 version_from 'lib/WWW/Ruler.pm';
+
 auto_set_repository;
 license 'perl';
 

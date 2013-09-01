@@ -113,10 +113,11 @@ A size of current page. It shows how many items in I<current> page.
 
 =item outside
 
-If a piece is located outside of array then returns true else false. It can
+If a piece is located outside of array then returns true else false. This can
 happen when page_number is <= 0 or page_number is more than a maximal possible
-page number for this data array. If L</outside> returned a true then L</start>,
-L</end> and L</size> methods will return 0 and L</ruler> returns an empty array.
+page number for this data array or when L<WWW::Ruler/amount> is zero. If
+L</outside> returned a true then L</start>, L</end> and L</size> methods will
+return 0 and L</ruler> returns an empty array.
 
 =back
 

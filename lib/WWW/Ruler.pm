@@ -5,7 +5,7 @@ use warnings;
 
 use WWW::Ruler::Piece;
 
-our $VERSION = '0.11';
+our $VERSION = '0.12';
 
 sub new {
     my ( $class, %opts ) = @_;
